@@ -9,7 +9,7 @@ $content =$_REQUEST['content'];
 $uid=intval($_REQUEST['uid']);
 //
 //
-$sql = "INSERT INTO tiezi (title,content,uid) VALUES ('$title','$content',$uid);";
+$sql = "INSERT INTO tiezi (title,content,uid,day_time) VALUES ('$title','$content',$uid,now());";
 
 $result = mysql_query($sql);
 if(! $result){

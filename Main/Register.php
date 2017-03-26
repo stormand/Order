@@ -3,11 +3,12 @@ include_once("../Utils/com.php");
 getConnection();
 $jsonArray=array();
 //
+
+echo "aaa";
 if(isset($_REQUEST['username'])&&isset($_REQUEST['password']))
 {
 $username =$_REQUEST['username'];
 $password =$_REQUEST['password'];
-$num=$_REQUEST['num'];
 //
 $s1="SELECT*FROM login WHERE username ='$username';";
 //
@@ -21,7 +22,7 @@ if(mysql_num_rows($result)>0){
 	exit();
 }
 //
-$sql = "INSERT INTO login (username,password,num) VALUES ('$username','$password','$num');";
+$sql = "INSERT INTO login (username,password) VALUES ('$username','$password');";
 
 $result = mysql_query($sql);
 if(! $result){

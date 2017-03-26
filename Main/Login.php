@@ -14,19 +14,27 @@ if($_REQUEST['code']==$_SESSION['code_session']){
 	if(! $result){
 		die("could not connect to the database</br>".mysql_error());
 	}else{
-		
-		$row=mysql_fetch_row($result);
-		
-		$jsonArray['phone']=$row[3];
-		$jsonArray['email']=$row[4];
-		$jsonArray['age']=$row[5];
-		$jsonArray['sex']=$row[6];
-		$jsonArray['weight']=$row[7];
-		$jsonArray['height']=$row[8];
+		$row  = mysql_num_rows($result);
+		if (!empty($row)){
+			while($row=mysql_fetch_row($result)){
+				$jsonArray["id"]=$row[0];
+				$jsonArray['username']=$row[1];
+				$jsonArray['phone']=$row[3];
+				$jsonArray['email']=$row[4];
+				$jsonArray['age']=$row[5];
+				$jsonArray['sex']=$row[6];
+				$jsonArray['weight']=$row[7];
+				$jsonArray['height']=$row[8];
+			}
+			$jsonArray["status"]=0;
+			$jsonArray["mes"]="Login success";
+			echo json_encode($jsonArray);
+		}else{
+			$jsonArray["status"]=0;
+			$jsonArray["mes"]="no such user";
+			echo json_encode($jsonArray);
+		}	
 
-		$jsonArray["status"]=0;
-		$jsonArray["mes"]="Login success";
-		echo json_encode($jsonArray);
 	}
 }else{
 	$jsonArray["status"]=1;
