@@ -3,11 +3,19 @@ session_start();
 include_once ("../Utils/com.php");//连接数据库
 getConnection();
 $jsonArray=array();
-//
-if($_REQUEST['code']==$_SESSION['code_session']){
+
+
 	@$username=$_REQUEST['username'];
 	@$password=$_REQUEST['password'];
+	@$loginMode=$_REQUEST['login_mode'];
 	$sql ="SELECT * FROM login where username='$username' and password = '$password'";
+	
+	
+	if($loginMode=="user_login" && $_REQUEST['code']!=$_SESSION['code_session']){
+		$jsonArray["status"]=0;
+		$jsonArray["mes"]="wrong identifying code";
+		die(json_encode($jsonArray));
+	}
 	
 	$result = mysql_query($sql);
 	
@@ -34,11 +42,7 @@ if($_REQUEST['code']==$_SESSION['code_session']){
 			$jsonArray["mes"]="no such user";
 			echo json_encode($jsonArray);
 		}	
-
 	}
-}else{
-	$jsonArray["status"]=1;
-	$jsonArray["mes"]="wrong identifying code";
-	echo json_encode($jsonArray);
-}
+
 closeConnection();
+?>
