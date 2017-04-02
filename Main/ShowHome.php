@@ -20,6 +20,7 @@
 				$array["content"]=$row[2];
 				$array["uid"]=$row[3];
 				$array["day_time"]=$row[4];
+				$array["image"]=$row[9];
 				$post[]=$array;
 			}
 			$jsonArray["post"]=$post;
